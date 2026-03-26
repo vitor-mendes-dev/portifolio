@@ -1,37 +1,48 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 
-type Theme = 'dark' | 'light'
+export type ThemePreference = 'system' | 'light' | 'dark'
 
 interface ThemeContextType {
-  theme: Theme
-  toggleTheme: () => void
+  preference: ThemePreference
+  setPreference: (p: ThemePreference) => void
 }
 
 const ThemeContext = createContext<ThemeContextType>({
-  theme: 'dark',
-  toggleTheme: () => {},
+  preference: 'system',
+  setPreference: () => {},
 })
 
+function getSystemIsDark() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+}
+
+function applyTheme(preference: ThemePreference) {
+  const isDark = preference === 'dark' || (preference === 'system' && getSystemIsDark())
+  document.documentElement.classList.toggle('dark', isDark)
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    const saved = localStorage.getItem('theme')
-    return (saved as Theme) || 'dark'
+  const [preference, setPreferenceState] = useState<ThemePreference>(() => {
+    return (localStorage.getItem('theme-preference') as ThemePreference) || 'system'
   })
 
   useEffect(() => {
-    const root = document.documentElement
-    if (theme === 'dark') {
-      root.classList.add('dark')
-    } else {
-      root.classList.remove('dark')
-    }
-    localStorage.setItem('theme', theme)
-  }, [theme])
+    applyTheme(preference)
+    localStorage.setItem('theme-preference', preference)
+  }, [preference])
 
-  const toggleTheme = () => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))
+  useEffect(() => {
+    if (preference !== 'system') return
+    const mq = window.matchMedia('(prefers-color-scheme: dark)')
+    const handler = () => applyTheme('system')
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [preference])
+
+  const setPreference = (p: ThemePreference) => setPreferenceState(p)
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ preference, setPreference }}>
       {children}
     </ThemeContext.Provider>
   )
