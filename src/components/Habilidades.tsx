@@ -1,50 +1,27 @@
 const skillGroups = [
   {
     category: 'Desenvolvimento',
-    skills: [
-      { name: 'HTML & CSS', level: 80 },
-      { name: 'JavaScript', level: 65 },
-      { name: 'Node.js', level: 55 },
-      { name: 'React', level: 50 },
-      { name: 'TypeScript', level: 40 },
-      { name: 'Python', level: 60 },
-    ],
+    skills: ['HTML & CSS', 'JavaScript', 'Node.js', 'React', 'TypeScript', 'Python'],
   },
   {
     category: 'Dados & Banco de Dados',
-    skills: [
-      { name: 'MySQL', level: 65 },
-      { name: 'SQLite', level: 65 },
-      { name: 'SQL (queries)', level: 70 },
-      { name: 'Excel / Planilhas', level: 85 },
-      { name: 'Análise de Processos', level: 75 },
-    ],
+    skills: ['MySQL', 'SQLite', 'SQL (queries)', 'Excel / Planilhas', 'Análise de Processos'],
   },
   {
     category: 'Ferramentas & Outros',
-    skills: [
-      { name: 'Git & GitHub', level: 60 },
-      { name: 'Machine Learning', level: 35 },
-      { name: 'Chatbots / WhatsApp', level: 45 },
-      { name: 'Automação de Tarefas', level: 70 },
-      { name: 'Gestão de Anúncios', level: 85 },
-    ],
+    skills: ['Git & GitHub', 'Machine Learning', 'Chatbots / WhatsApp', 'Automação de Tarefas', 'Gestão de Anúncios'],
   },
 ]
 
-function SkillBar({ name, level }: { name: string; level: number }) {
+function SkillItem({ name }: { name: string }) {
   return (
-    <div>
-      <div className="flex justify-between items-center mb-1.5">
-        <span className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">{name}</span>
-        <span className="text-xs text-zinc-400 dark:text-zinc-500">{level}%</span>
-      </div>
-      <div className="h-1.5 bg-zinc-200 dark:bg-white/5 rounded-full overflow-hidden">
-        <div
-          className="h-full rounded-full bg-gradient-to-r from-emerald-500 to-cyan-500 transition-all duration-1000"
-          style={{ width: `${level}%` }}
-        />
-      </div>
+    <div className="flex items-center gap-3">
+      <span className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500/10 dark:bg-emerald-500/15 flex items-center justify-center">
+        <svg className="w-3 h-3 text-emerald-500" viewBox="0 0 12 12" fill="none">
+          <path d="M2 6l3 3 5-5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+      <span className="text-sm text-zinc-700 dark:text-zinc-300 font-medium">{name}</span>
     </div>
   )
 }
@@ -71,9 +48,9 @@ export function Habilidades() {
               <h3 className="text-zinc-900 dark:text-white font-semibold mb-6 pb-4 border-b border-zinc-200/80 dark:border-white/[0.08]">
                 {category}
               </h3>
-              <div className="flex flex-col gap-5">
+              <div className="flex flex-col gap-4">
                 {skills.map((skill) => (
-                  <SkillBar key={skill.name} {...skill} />
+                  <SkillItem key={skill} name={skill} />
                 ))}
               </div>
             </div>
