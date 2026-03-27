@@ -19,9 +19,9 @@ const projects = [
     ],
     tags: ['Python', 'Flask', 'MySQL', 'Machine Learning', 'Scikit-learn'],
     image: mlLabs as string,
-    github: 'https://github.com/vitor-mendes-dev',
-    live: null,
-    status: 'wip' as const,
+    github: 'https://github.com/vitor-mendes-dev/ML-Labs',
+    live: 'https://vitor-mendes-dev.github.io/ML-Labs/',
+    status: 'online' as const,
   },
   {
     title: 'Mapa de Calor & Insights',
