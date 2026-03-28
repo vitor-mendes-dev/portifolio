@@ -11,13 +11,13 @@ import portfolioImg from '../assets/projects/portfolio.png'
 const projects = [
   {
     title: 'ML Labs',
-    context: 'Experimentos com Machine Learning em dados estruturados',
+    context: 'Previsão de preço de venda de imóveis no Sudoeste, Brasília-DF',
     highlights: [
-      'API Flask com modelos especializados por tipo de negócio (venda e aluguel)',
-      'Pipeline completo: coleta MySQL → treino → serialização com pickle',
-      'R² de 0,98 no treino com 104.232 registros processados',
+      'Modelo XGBoost especializado no Sudoeste com granularidade por quadra — R² 0,95 no teste',
+      'Inferência 100% no browser via ONNX: nenhum dado enviado a nenhum servidor',
+      '2.224 imóveis reais analisados — MAE de R$ 130k para apartamentos e kitnets',
     ],
-    tags: ['Python', 'Flask', 'MySQL', 'Machine Learning', 'Scikit-learn'],
+    tags: ['Python', 'XGBoost', 'ONNX', 'React', 'TypeScript'],
     image: mlLabs as string,
     github: 'https://github.com/vitor-mendes-dev/ML-Labs',
     live: 'https://vitor-mendes-dev.github.io/ML-Labs/',
